@@ -8,7 +8,7 @@ const Barra = ({navigation, route}) => {
 
   return (
     <Button
-      icon="add-circle-outline"
+      icon="plus-circle"
       uppercase="true"
       textColor="#FFF"
       onPress={() => handlePress()}>
