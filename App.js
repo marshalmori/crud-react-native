@@ -5,6 +5,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import Inicio from './views/Inicio';
 import NuevoCliente from './views/NuevoCliente';
 import DetallesCliente from './views/DetallesCliente';
+import BarraSuperior from './components/ui/Barra';
 
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 
@@ -38,7 +39,19 @@ const App = () => {
               fontWeight: 'bold',
             },
           }}>
-          <Stack.Screen name="Inicio" component={Inicio} />
+          <Stack.Screen
+            name="Inicio"
+            component={Inicio}
+            options={({navigation, route}) => ({
+              headerLeft: props => (
+                <BarraSuperior
+                  {...props}
+                  navigation={navigation}
+                  route={route}
+                />
+              ),
+            })}
+          />
           <Stack.Screen
             name="NuevoCliente"
             component={NuevoCliente}
