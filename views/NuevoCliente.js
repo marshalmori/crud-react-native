@@ -9,6 +9,7 @@ import {
   Portal,
 } from 'react-native-paper';
 import globalStyles from '../styles/global';
+import axios from 'axios';
 
 const NuevoCliente = () => {
   const [nombre, guardarNombre] = useState('');
@@ -17,7 +18,7 @@ const NuevoCliente = () => {
   const [empresa, guardarEmpresa] = useState('');
   const [alerta, guardarAlerta] = useState(false);
 
-  const guardarCliente = () => {
+  const guardarCliente = async () => {
     //validar
     if (nombre === '' || telefono === '' || correo === '' || empresa === '') {
       guardarAlerta(true);
@@ -29,6 +30,11 @@ const NuevoCliente = () => {
     console.log(cliente);
 
     // guardar el cliente en la API
+    try {
+      await axios.post('http://10.0.2.2:3000/cliente', cliente);
+    } catch (error) {
+      console.log(error);
+    }
 
     // redireccionar
 
