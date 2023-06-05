@@ -1,6 +1,13 @@
 import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {TextInput, Headline, Button} from 'react-native-paper';
+import {
+  TextInput,
+  Headline,
+  Button,
+  Paragraph,
+  Dialog,
+  Portal,
+} from 'react-native-paper';
 import globalStyles from '../styles/global';
 
 const NuevoCliente = () => {
@@ -8,17 +15,18 @@ const NuevoCliente = () => {
   const [telefono, guardarTelefono] = useState('');
   const [correo, guardarCorreo] = useState('');
   const [empresa, guardarEmpresa] = useState('');
+  const [alerta, guardarAlerta] = useState(false);
 
   const guardarCliente = () => {
-    console.log('guardando cliente');
-
     //validar
     if (nombre === '' || telefono === '' || correo === '' || empresa === '') {
-      console.log('Hay campos vacios');
+      guardarAlerta(true);
       return;
     }
 
     // generar el cliente
+    const cliente = {nombre, telefono, empresa, correo};
+    console.log(cliente);
 
     // guardar el cliente en la API
 
@@ -33,7 +41,7 @@ const NuevoCliente = () => {
       <TextInput
         label="Nombre"
         placeholder="Digite seu nome"
-        onChange={texto => guardarNombre(texto)}
+        onChangeText={texto => guardarNombre(texto)}
         value={nombre}
         style={styles.input}
       />
@@ -41,7 +49,7 @@ const NuevoCliente = () => {
       <TextInput
         label="Teléfono"
         placeholder="Seu teléfono"
-        onChange={texto => guardarTelefono(texto)}
+        onChangeText={texto => guardarTelefono(texto)}
         value={telefono}
         style={styles.input}
       />
@@ -49,7 +57,7 @@ const NuevoCliente = () => {
       <TextInput
         label="Correo"
         placeholder="Seu correo"
-        onChange={texto => guardarCorreo(texto)}
+        onChangeText={texto => guardarCorreo(texto)}
         value={correo}
         style={styles.input}
       />
@@ -57,7 +65,7 @@ const NuevoCliente = () => {
       <TextInput
         label="Empresa"
         placeholder="Nome da empresa"
-        onChange={texto => guardarEmpresa(texto)}
+        onChangeText={texto => guardarEmpresa(texto)}
         value={empresa}
         style={styles.input}
       />
@@ -68,6 +76,18 @@ const NuevoCliente = () => {
         onPress={() => guardarCliente()}>
         Guardar Cliente
       </Button>
+
+      <Portal>
+        <Dialog visible={alerta} onDismiss={() => guardarAlerta(false)}>
+          <Dialog.Title>Error</Dialog.Title>
+          <Dialog.Content>
+            <Paragraph>Todos los campos son obligatorios</Paragraph>
+          </Dialog.Content>
+          <Dialog.Actions>
+            <Button onPress={() => guardarAlerta(false)}>OK</Button>
+          </Dialog.Actions>
+        </Dialog>
+      </Portal>
     </View>
   );
 };
