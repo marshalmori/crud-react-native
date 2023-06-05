@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, StyleSheet} from 'react-native';
 import {TextInput, Headline, Button} from 'react-native-paper';
 import globalStyles from '../styles/global';
 
 const NuevoCliente = () => {
-  const leerNombre = () => {
-    console.log('Escrevendo...');
-  };
+  const [nombre, guardarNombre] = useState('');
+  const [telefono, guardarTelefono] = useState('');
+  const [correo, guardarCorreo] = useState('');
+  const [empresa, guardarEmpresa] = useState('');
 
   return (
     <View style={globalStyles.contenedor}>
@@ -14,28 +15,32 @@ const NuevoCliente = () => {
       <TextInput
         label="Nombre"
         placeholder="Digite seu nome"
-        onChange={() => leerNombre()}
+        onChange={texto => guardarNombre(texto)}
+        value={nombre}
         style={styles.input}
       />
 
       <TextInput
         label="Teléfono"
         placeholder="Seu teléfono"
-        onChange={() => leerNombre()}
+        onChange={texto => guardarTelefono(texto)}
+        value={telefono}
         style={styles.input}
       />
 
       <TextInput
         label="Correo"
         placeholder="Seu correo"
-        onChange={() => leerNombre()}
+        onChange={texto => guardarCorreo(texto)}
+        value={correo}
         style={styles.input}
       />
 
       <TextInput
         label="Empresa"
         placeholder="Nome da empresa"
-        onChange={() => leerNombre()}
+        onChange={texto => guardarEmpresa(texto)}
+        value={empresa}
         style={styles.input}
       />
     </View>
